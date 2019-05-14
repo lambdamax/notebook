@@ -1,0 +1,8 @@
+*/migrations
+*/.DS_Store
+*.pyc
+*.conf
+venv
+.idea
+__pycache__
+.ipynb_checkpoints
