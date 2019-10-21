@@ -6,5 +6,6 @@ venv
 .idea
 __pycache__
 .ipynb_checkpoints
+*.ipynb
 test*.py
 *.log
