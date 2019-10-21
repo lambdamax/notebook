@@ -1,7 +1,8 @@
 import scrapy
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-
+from selenium.webdriver.support import expected_conditions as EC
 
 class GetStock(scrapy.Spider):
     name = "get_stock"
@@ -10,22 +11,15 @@ class GetStock(scrapy.Spider):
         urls = [
             'http://quote.eastmoney.com/center/gridlist.html#hs_a_board',
         ]
-        # driver = webdriver.Firefox()
         for url in urls:
-            # driver.get(url)
-            # WebDriverWait(driver, 100).until(driver.find_elements_by_id('Table0'))
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        # page = response.url.split("/")[-2]
-        # filename = 'quotes-%s.html' % page
-        # with open(filename, 'wb') as f:
-        #     f.write(response.body)
-        # self.log('Saved file %s' % filename)
-        print(response.body)
-        driver = webdriver.Firefox()
+        # self.driver.get(self.cur_url)
+        # WebDriverWait(self.driver, 100).until(
+        #     EC.presence_of_element_located((By.ID, "table_wrapper-table"))
+        # )
         # driver.get(response.url)
-        driver.get('http://quote.eastmoney.com/center/gridlist.html#hs_a_board')
-        WebDriverWait(driver, 100).until(driver.find_elements_by_id('Table0'))
+        print(response.body)
 
 
