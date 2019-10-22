@@ -5,8 +5,9 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-from scrapy import signals, http
-
+from scrapy import signals
+from scrapy.http import HtmlResponse
+from scrapy.selector import Selector
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -23,8 +24,10 @@ class SeleniumMiddleware(object):
                 EC.presence_of_element_located((By.ID, "table_wrapper-table"))
             )
             html = driver.page_source
+            se = Selector(text=html)
+            next_page = se.xpath('//*[@id="main-table_paginate"]/a[2]')
             driver.quit()
-            return http.HtmlResponse(url=request.url, body=html, request=request, encoding='utf-8')
+            return HtmlResponse(url=request.url, body=html, request=request, encoding='utf-8')
 
-    def spider_opened(self, spider):
-        spider.logger.info('Eastmoney Spider opened: %s' % spider.name)
+    # def spider_opened(self, spider):
+    #     spider.logger.info('Eastmoney Spider opened: %s' % spider.name)

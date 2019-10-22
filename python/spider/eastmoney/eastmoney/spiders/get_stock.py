@@ -1,8 +1,7 @@
 import scrapy
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+from scrapy.selector import Selector
+from ..items import BaseStock
+
 
 class GetStock(scrapy.Spider):
     name = "get_stock"
@@ -15,11 +14,11 @@ class GetStock(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        # self.driver.get(self.cur_url)
-        # WebDriverWait(self.driver, 100).until(
-        #     EC.presence_of_element_located((By.ID, "table_wrapper-table"))
-        # )
-        # driver.get(response.url)
-        print(response.body)
-
-
+        stock = BaseStock()
+        se = Selector(response=response)
+        trs = se.xpath('//*[@id="table_wrapper-table"]/tbody/tr')
+        for tr in trs:
+            stock['link'] = tr.xpath('td[2]/a/@href').extract()[0]
+            stock['code'] = tr.xpath('td[2]/a/text()').extract()[0]
+            stock['name'] = tr.xpath('td[3]/a/text()').extract()[0]
+            yield stock
