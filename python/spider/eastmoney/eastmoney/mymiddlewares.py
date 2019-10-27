@@ -18,7 +18,8 @@ from logging import getLogger
 
 class SeleniumMiddleware(object):
     def process_request(self, request, spider):
-        if spider.name == 'get_stock' and request.url == 'http://quote.eastmoney.com/center/gridlist.html#hs_a_board':
+        if spider.name == 'get_stock' and \
+                request.url == 'http://quote.eastmoney.com/center/gridlist.html#hs_a_board':
             driver = webdriver.Firefox()
             driver.get(request.url)
             next_page = True
@@ -35,7 +36,8 @@ class SeleniumMiddleware(object):
                 finally:
                     html = driver.page_source
                     # driver.quit()
-            return HtmlResponse(url=request.url, body=html, request=request, encoding='utf-8')
+                return HtmlResponse(url=request.url, body=html, request=request, encoding='utf-8')
+            return None
 
     # def spider_opened(self, spider):
     #     spider.logger.info('Eastmoney Spider opened: %s' % spider.name)
