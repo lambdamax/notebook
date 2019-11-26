@@ -52,10 +52,10 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-    'eastmoney.middlewares.EastmoneyDownloaderMiddleware': 543,
-    'eastmoney.mymiddlewares.SeleniumMiddleware': 542,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'eastmoney.middlewares.EastmoneyDownloaderMiddleware': 543,
+#     'eastmoney.mymiddlewares.SeleniumMiddleware': 542,
+# }
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

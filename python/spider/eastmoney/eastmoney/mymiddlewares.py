@@ -22,22 +22,18 @@ class SeleniumMiddleware(object):
                 request.url == 'http://quote.eastmoney.com/center/gridlist.html#hs_a_board':
             driver = webdriver.Firefox()
             driver.get(request.url)
-            next_page = True
-            while next_page:
-                WebDriverWait(driver, 100).until(
-                    EC.presence_of_element_located((By.ID, "table_wrapper-table"))
-                )
-                try:
+            htmls = []
+            for i in range(10):
+                    WebDriverWait(driver, 100).until(
+                        EC.presence_of_element_located((By.ID, "table_wrapper-table"))
+                    )
                     next_page_btn = driver.find_element_by_xpath(
                         '//*[@id="main-table_paginate"]/a[@class="next paginate_button"]')
+                    htmls.append(driver.page_source)
                     next_page_btn.click()
-                except NoSuchElementException:
-                    next_page = False
-                finally:
-                    html = driver.page_source
-                    # driver.quit()
-                return HtmlResponse(url=request.url, body=html, request=request, encoding='utf-8')
-            return None
+            driver.quit()
+            return HtmlResponse(url=request.url, body=htmls, request=request, encoding='utf-8')
+        return None
 
-    # def spider_opened(self, spider):
-    #     spider.logger.info('Eastmoney Spider opened: %s' % spider.name)
+# def spider_opened(self, spider):
+#     spider.logger.info('Eastmoney Spider opened: %s' % spider.name)

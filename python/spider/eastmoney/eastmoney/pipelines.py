@@ -5,8 +5,17 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
+import json
+
 
 class EastmoneyPipeline(object):
+    def open_spider(self, spider):
+        self.file = open('items.csv', 'w')
+
+    def close_spider(self, spider):
+        self.file.close()
+
     def process_item(self, item, spider):
-        print(item)
+        line = json.dumps(dict(item)) + "\n"
+        self.file.write(line)
         return item
