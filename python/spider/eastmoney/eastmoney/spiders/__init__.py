@@ -3,4 +3,5 @@
 # Please refer to the documentation for information on how to create and manage
 # your spiders.
 
-from . import get_stock
+from . import eastmoney
+from . import get_sina_index

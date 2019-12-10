@@ -53,8 +53,8 @@ DEFAULT_REQUEST_HEADERS = {
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-    'eastmoney.middlewares.EastmoneyDownloaderMiddleware': 543,
-    'eastmoney.mymiddlewares.SeleniumMiddleware': 542,
+    # 'eastmoney.middlewares.EastmoneyDownloaderMiddleware': 543,
+    # 'eastmoney.mymiddlewares.SeleniumMiddleware': 542,
 }
 
 # Enable or disable extensions
@@ -66,7 +66,8 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'eastmoney.pipelines.EastmoneyPipeline': 300,
+    # 'eastmoney.pipelines.EastmoneyPipeline': 300,
+    'eastmoney.pipelines.SinaPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
