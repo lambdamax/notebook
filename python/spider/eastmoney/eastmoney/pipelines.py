@@ -6,6 +6,7 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 
 import requests
+from .items import BaseSinaStock, BaseSinaFutures
 
 
 class EastmoneyPipeline(object):
@@ -16,7 +17,11 @@ class EastmoneyPipeline(object):
 
 class SinaPipeline(object):
     def process_item(self, item, spider):
-        # print(dict(item))
-        data = dict(item).update({'csrfmiddlewaretoken': spider.django_token})
-        requests.post('http://localhost:5500/blog/sinaspider', data=data)
+        csrftoken = spider.django_token
+        if csrftoken:
+            data = dict(item)
+            data.update({'csrfmiddlewaretoken': csrftoken,
+                         'title': isinstance(item, BaseSinaStock) and 'stock' or 'futures'})
+            r = requests.post('http://localhost:5500/api/sinaspider', data=data, cookies=dict(csrftoken=csrftoken))
+
         return item
