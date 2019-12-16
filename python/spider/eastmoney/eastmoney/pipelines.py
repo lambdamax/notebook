@@ -22,6 +22,5 @@ class SinaPipeline(object):
             data = dict(item)
             data.update({'csrfmiddlewaretoken': csrftoken,
                          'title': isinstance(item, BaseSinaStock) and 'stock' or 'futures'})
-            r = requests.post('http://localhost:5500/api/sinaspider', data=data, cookies=dict(csrftoken=csrftoken))
-
+            requests.post('http://localhost:5500/api/sinaspider', data=data, cookies=dict(csrftoken=csrftoken))
         return item

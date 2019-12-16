@@ -2,6 +2,7 @@ import scrapy
 from scrapy.selector import Selector
 from ..items import *
 import requests
+from datetime import datetime
 
 
 class SinaIndex(scrapy.Spider):
@@ -23,10 +24,16 @@ class SinaIndex(scrapy.Spider):
         var hq_str_hf_OIL="64.188,,64.170,64.180,64.260,64.010,15:49:43,64.250,64.030,0.000,15,1,2019-12-10,布伦特原油";
         :return:
         """
-        urls = [
-            ('stock', 'https://hq.sinajs.cn/rn=1575963644280&list=s_sh000001,s_sz399001,s_sz399006'),
-            ('futures', 'https://hq.sinajs.cn/rn=1575963644280&list=hf_GC,hf_OIL'),
-        ]
+        urls = []
+        now_time = datetime.now()
+        begin_time_str = now_time.strftime('%Y-%m-%d') + ' 9:14'
+        end_time_str = now_time.strftime('%Y-%m-%d') + ' 15:01'
+        begin_time = datetime.strptime(begin_time_str, '%Y-%m-%d %H:%M')
+        end_time = datetime.strptime(end_time_str, '%Y-%m-%d %H:%M')
+
+        if begin_time < now_time < end_time:
+            urls.append(('stock', 'https://hq.sinajs.cn/rn=1575963644280&list=s_sh000001,s_sz399001,s_sz399006'))
+        urls.append(('futures', 'https://hq.sinajs.cn/rn=1575963644280&list=hf_GC,hf_OIL'))
         for title, url in urls:
             yield scrapy.Request(url=url, callback=self.parse, cb_kwargs={'title': title})
 
@@ -39,8 +46,8 @@ class SinaIndex(scrapy.Spider):
             if title == 'stock':
                 model['name'] = info[0]
                 model['price'] = float(info[1])
-                model['rate'] = float(info[2])
-                model['range'] = float(info[3])
+                model['range'] = float(info[2])
+                model['rate'] = float(info[3])
                 model['quantity'] = float(info[4])
                 model['amount'] = float(info[5])
             else:
