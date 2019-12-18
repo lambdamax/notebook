@@ -26,7 +26,7 @@ class SinaIndex(scrapy.Spider):
         """
         urls = []
         now_time = datetime.now()
-        begin_time_str = now_time.strftime('%Y-%m-%d') + ' 9:14'
+        begin_time_str = now_time.strftime('%Y-%m-%d') + ' 9:29'
         end_time_str = now_time.strftime('%Y-%m-%d') + ' 15:01'
         begin_time = datetime.strptime(begin_time_str, '%Y-%m-%d %H:%M')
         end_time = datetime.strptime(end_time_str, '%Y-%m-%d %H:%M')
