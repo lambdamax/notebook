@@ -33,3 +33,6 @@ class BaseSinaFutures(scrapy.Item):
     """
     name = scrapy.Field()
     price = scrapy.Field()
+    rate = scrapy.Field()
+    range = scrapy.Field()
+    last_price = scrapy.Field()

@@ -53,5 +53,9 @@ class SinaIndex(scrapy.Spider):
             else:
                 model['name'] = info[-1]
                 model['price'] = float(info[0])
+                model['last_price'] = float(info[7])
+                # 昨结算价-现价
+                model['range'] = round(model['price'] - model['last_price'], 2)
+                model['rate'] = round(model['range'] / model['last_price'] * 100, 2)
             # print(model.name, model.price, model.rate, model.range, model.quantity, model.amount)
             yield model
