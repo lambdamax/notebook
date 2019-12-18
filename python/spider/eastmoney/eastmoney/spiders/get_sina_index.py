@@ -10,7 +10,11 @@ class SinaIndex(scrapy.Spider):
 
     def __init__(self):
         super().__init__()
-        self.django_token = requests.get('http://localhost:5500/api/_get_token').text or None
+        try:
+            r = requests.get('http://localhost:5500/api/_get_token', timeout=10)
+            self.django_token = r.text
+        except:
+            self.django_token = None
 
     def start_requests(self):
         """
