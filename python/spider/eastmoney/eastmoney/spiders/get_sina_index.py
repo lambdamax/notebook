@@ -11,7 +11,7 @@ class SinaIndex(scrapy.Spider):
     def __init__(self):
         super().__init__()
         try:
-            r = requests.get('http://localhost:5500/api/_get_token', timeout=10)
+            r = requests.get('http://localhost:5500/api/spider?get_token=1', timeout=10)
             self.django_token = r.text
         except:
             self.django_token = None
