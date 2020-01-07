@@ -9,7 +9,7 @@ class MyCircularQueue:
         # 初始为[0,0,..]
         self.l = [0] * k
         self.size = 0
-        # self.l的第一个位置
+        # self.h => head; self.t => tail
         self.h = self.t = 0
 
     def enQueue(self, value: int) -> bool:
@@ -44,7 +44,7 @@ class MyCircularQueue:
         """
         Get the last item from the queue.
         """
-        return self.l[self.t-1] if self.size else -1
+        return self.l[self.t - 1] if self.size else -1
 
     def isEmpty(self) -> bool:
         """
@@ -73,15 +73,40 @@ param_4 = obj.Rear()
 param_5 = obj.isEmpty()
 param_6 = obj.isFull()
 
-print(param_1)
-print(obj.l)
-print(param_2)
-print(obj.l)
-print(param_3)
-print(obj.l)
-print(param_4)
-print(obj.l)
-print(param_5)
-print(obj.l)
-print(param_6)
-print(obj.l)
+
+# 多线程
+import threading
+import queue
+import random
+
+
+def producer():
+    while True:
+        gcondition.acquire()
+        n = random.randint(1, 100)
+        if q.full():
+            gcondition.wait()
+        q.put(n)
+        print(threading.current_thread().getName() + ':%s %s' % (n, q.queue))
+        gcondition.notify_all()
+        gcondition.release()
+
+
+def consumer():
+    while True:
+        gcondition.acquire()
+        if q.empty():
+            gcondition.wait()
+        n = q.get()
+        print(threading.current_thread().getName() + ':%s %s' % (n, q.queue))
+        gcondition.notify_all()
+        gcondition.release()
+
+
+q = queue.Queue()
+q.maxsize = 10
+gcondition = threading.Condition()
+
+t1 = threading.Thread(name='producer1', target=producer).start()
+# t2 = threading.Thread(name='producer2', target=producer).start()
+t3 = threading.Thread(name='consumer', target=consumer).start()
