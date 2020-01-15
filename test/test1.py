@@ -110,3 +110,4 @@ gcondition = threading.Condition()
 t1 = threading.Thread(name='producer1', target=producer).start()
 # t2 = threading.Thread(name='producer2', target=producer).start()
 t3 = threading.Thread(name='consumer', target=consumer).start()
+
