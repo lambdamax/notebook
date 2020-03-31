@@ -55,7 +55,7 @@ class SinaIndex(scrapy.Spider):
                 model['quantity'] = float(info[4])
                 model['amount'] = float(info[5])
             else:
-                model['name'] = info[-1]
+                model['name'] = info[-2]
                 model['price'] = float(info[0])
                 model['last_price'] = float(info[7])
                 # 昨结算价-现价
