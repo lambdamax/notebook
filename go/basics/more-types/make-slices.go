@@ -7,6 +7,7 @@ import (
 
 func main() {
 	//切片可以用内建函数 make 来创建，这也是你创建动态数组的方式
+	//The make function allocates a zeroed array and returns a slice that refers to that array
 	a := make([]int, 5)
 	printSlice("a", a)
 
