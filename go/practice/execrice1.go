@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"sort"
 	"time"
 )
 
@@ -79,5 +80,35 @@ func main() {
 	fmt.Printf("%p\n", s1)  //指向slice内数组的地址 等同于 &s1[0]
 	fmt.Printf("%p\n", s1[:1])
 	fmt.Printf("%p\n", s1[1:])
+
+	m1 := make(map[string]int)
+	m1["name"] = 1
+	fmt.Println(m1)
+
+	m2 := map[string]int{"name1": 2}
+	val, ok := m2["name"]
+	fmt.Println(val, ok)
+
+	delete(m2, "name1")
+	fmt.Println(m2)
+
+	m2 = map[string]int{"name1": 1, "name2": 2, "name3": 3, "name4": 4, "name5": 5, "name6": 6, "name7": 7}
+	for k, v := range m2 {
+		fmt.Println(k, v)
+	}
+
+	keys := make([]string, len(m2))
+
+	//map遍历是无序的
+	for k, _ := range m2 {
+		keys = append(keys, k)
+	}
+	fmt.Println(keys)
+
+	//用slice来记录顺序，按序遍历map
+	sort.Strings(keys)
+	for _, v := range keys {
+		fmt.Println(m2[v])
+	}
 
 }
