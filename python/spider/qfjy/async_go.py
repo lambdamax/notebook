@@ -11,15 +11,6 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-def cost(func):
-    def wrapper():
-        now_time = time.time()
-        func()
-        print(time.time() - now_time)
-
-    return wrapper
-
-
 class QFJY:
     def __init__(self):
         self.url = "http://video.mobiletrain.org/course/index/courseId/548"
@@ -27,6 +18,7 @@ class QFJY:
         self.q = queue.Queue()
         self.check_save_path()
         self.workers = 10
+        self.chunk_size = 128
 
     def info(self, filename, filetype, size, url, path):
         _logger.warning('-' * 30)
@@ -39,8 +31,9 @@ class QFJY:
         _logger.warning('-' * 30)
 
     def check_save_path(self):
-        base_path = "C:\Afiles"
-        dirname = "go"
+        base_path = "D:\download"
+        # base_path = "C:\Afiles"
+        dirname = "go2"
         self.path = os.path.join(base_path, dirname)
         if not os.path.exists(self.path):
             os.mkdir(self.path)
@@ -57,19 +50,17 @@ class QFJY:
     async def download(self, url, filename):
         file_to_save = os.path.join(self.path, filename)
         async with aiohttp.ClientSession() as session:
-            async with session.get(url) as r:
-                filesize = r.headers["Content-Length"]
+            async with session.get(url) as resp:
+                filesize = resp.headers["Content-Length"]
                 total_size = int(filesize)
-                self.info(filename, r.headers["Content-Type"], filesize, url, file_to_save)
+                self.info(filename, resp.headers["Content-Type"], filesize, url, file_to_save)
                 if os.path.exists(file_to_save) and os.path.getsize(file_to_save) == total_size:
                     _logger.warning(filename + "检测到已存在")
                     return
-                chunk_size = 128
                 with open(file_to_save, 'wb') as f:
-                    async for content in r.content.iter_chunked(chunk_size):
+                    async for content in resp.content.iter_chunked(self.chunk_size):
                         f.write(content)
 
-    @cost
     async def run(self):
         self.parse()
         urls = []
@@ -101,6 +92,8 @@ class QFJY:
 
 
 if __name__ == "__main__":
+    now_time = time.time()
     s = QFJY()
     # asyncio.run(s.test_run())
     asyncio.run(s.run())
+    print(time.time() - now_time)
