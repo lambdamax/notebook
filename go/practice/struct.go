@@ -30,7 +30,14 @@ func main() {
 	fmt.Println(p4)
 	p4 = p3
 	fmt.Println(p4)
+	//方法，需指定调用者
+	p3.work()
+	p3.rest()
 
+	//子类访问父类方法
+	s1 := Student{p2, "北大"}
+	s1.work()
+	s1.rest()
 }
 
 type Person struct {
@@ -38,4 +45,17 @@ type Person struct {
 	Age  int
 	Sex  string
 	Addr string
+}
+
+func (p Person) work() {
+	fmt.Println(p.Name, "在工作")
+}
+
+func (p *Person) rest() {
+	fmt.Println(p.Name, "在休息")
+}
+
+type Student struct {
+	Person
+	school string
 }
