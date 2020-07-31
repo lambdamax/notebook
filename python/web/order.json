@@ -1,0 +1,133 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "OrderType": "P",
+            "TrackingNo": "323010305737",
+            "CustCode": "6052000",
+            "SourceReference": "15944孙康舒",
+            "InvoiceNumber": "323110252408",
+            "DeliveryCode": "15944",
+            "Lines": [
+                {
+                    "LineNo": 1,
+                    "ProductCode": "CHS34100EJ",
+                    "ProductType": "S",
+                    "OpcCode": "",
+                    "Price": 150,
+                    "Quantity": 1,
+                    "SPH": "-02.00",
+                    "CYL": "-00.75",
+                    "ADD": "+00.00",
+                    "EYE": "R",
+                    "AXIS": "170",
+                    "Phys_diam": "80",
+                    "Comm_diam": "80",
+                    "Side": "0",
+                    "Phase": "",
+                    "Lens": [
+                        {
+                            "LogisticCode": "WC100018601172155427"
+                        }
+                    ]
+                },
+                {
+                    "LineNo": 2,
+                    "ProductCode": "CHS34100EJ",
+                    "ProductType": "S",
+                    "OpcCode": "",
+                    "Price": 150,
+                    "Quantity": 1,
+                    "SPH": "-02.00",
+                    "CYL": "-00.75",
+                    "ADD": "+00.00",
+                    "EYE": "L",
+                    "AXIS": "165",
+                    "Phys_diam": "80",
+                    "Comm_diam": "80",
+                    "Side": "0",
+                    "Phase": "",
+                    "Lens": [
+                        {
+                            "LogisticCode": "WC100018602172155427"
+                        }
+                    ]
+                },
+                {
+                    "LineNo": 3,
+                    "ProductCode": "800",
+                    "ProductType": "V",
+                    "OpcCode": "",
+                    "Price": 100,
+                    "Quantity": 2,
+                    "SPH": "......",
+                    "CYL": "......",
+                    "ADD": "......",
+                    "EYE": "",
+                    "AXIS": "",
+                    "Phys_diam": "0",
+                    "Comm_diam": "0",
+                    "Side": "0",
+                    "Phase": "3,4",
+                    "Lens": []
+                },
+                {
+                    "LineNo": 4,
+                    "ProductCode": "GC002",
+                    "ProductType": "M",
+                    "OpcCode": "",
+                    "Price": 0,
+                    "Quantity": 1,
+                    "SPH": "......",
+                    "CYL": "......",
+                    "ADD": "......",
+                    "EYE": "",
+                    "AXIS": "",
+                    "Phys_diam": "0",
+                    "Comm_diam": "0",
+                    "Side": "0",
+                    "Phase": "",
+                    "Lens": []
+                },
+                {
+                    "LineNo": 5,
+                    "ProductCode": "309",
+                    "ProductType": "V",
+                    "OpcCode": "",
+                    "Price": 0,
+                    "Quantity": 2,
+                    "SPH": "......",
+                    "CYL": "......",
+                    "ADD": "......",
+                    "EYE": "",
+                    "AXIS": "",
+                    "Phys_diam": "0",
+                    "Comm_diam": "0",
+                    "Side": "0",
+                    "Phase": "",
+                    "Lens": []
+                },
+                {
+                    "LineNo": 6,
+                    "ProductCode": "INATSE01",
+                    "ProductType": "M",
+                    "OpcCode": "",
+                    "Price": 0,
+                    "Quantity": 2,
+                    "SPH": "......",
+                    "CYL": "......",
+                    "ADD": "......",
+                    "EYE": "",
+                    "AXIS": "",
+                    "Phys_diam": "0",
+                    "Comm_diam": "0",
+                    "Side": "0",
+                    "Phase": "",
+                    "Lens": []
+                }
+            ]
+        }
+    ]
+}

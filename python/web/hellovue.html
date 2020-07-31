@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+</head>
+<body>
+<div id="box">
+    <!--    计算属性做动态过滤-->
+    <input type="text" v-model="mytext">
+    {{mytext}}
+    <ul>
+        <li v-for="data in compute2">
+            {{data}}
+        </li>
+    </ul>
+    <hr>
+    <input type="number" v-model="mynumber">
+    {{mynumber}}
+    <hr>
+    <input type="text" v-model.lazy="username">
+    {{username}}
+    <hr>
+    <input type="text" v-model.trim="password">
+    {{password}}
+    <hr>
+    <p>计算属性：{{compute1}}</p>
+    <p>普通方法：{{func1()}}</p>
+    <hr>
+    <button @click="handleClick">获取结果</button>
+    <ul>
+        <li v-for="data in datalist">
+            {{data}}
+        </li>
+    </ul>
+</div>
+<script type="application/javascript">
+
+    new Vue({
+        el: "#box",
+        data: {
+            mynumber: 0,
+            mytext: "",
+            username: "max",
+            password: "",
+            datalist: ["aaa", "bbb", "cccc", "aab", "bbc"]
+        },
+        computed: {
+            // 计算属性只调用一次，缓存
+            compute1() {
+                return this.username.substring(0, 1).toUpperCase() + this.username.substring(1)
+            },
+            compute2() {
+                return this.datalist.filter(item => item.indexOf(this.mytext) > -1)
+            }
+        },
+        methods: {
+            handleClick() {
+                // var url="https://gc-eoca.essilorchina.com/masterdata/orders?tracking_number=323010305737&application=test"
+                fetch("./order.json", {
+                    method: "GET",
+                    mode: "cors"
+                }).then(res => res.json()).then(res => {
+                    console.log(res)
+                    this.datalist = res.results[0].Lines
+                })
+            },
+            // 方法每次都会调用
+            func1() {
+                return this.username.substring(0, 1).toUpperCase() + this.username.substring(1)
+            }
+        }
+    })
+</script>
+</body>
+</html>
