@@ -35,8 +35,36 @@
             {{data}}
         </li>
     </ul>
+    <hr>
+    <navbar></navbar>
 </div>
 <script type="application/javascript">
+    // 全局定义组件
+    Vue.component("navbar", {
+        template: `
+        <div>
+            <button @click="handleBack">返回</button>
+                Navbar
+            <button>主页</button>
+            <navbarchild></navbarchild>
+        </div>`,
+        methods: {
+            handleBack() {
+                console.log("back")
+            }
+        },
+        // 局部定义组件
+        components: {
+            navbarchild: {
+                template: `<div @click="handleChild">navbarchild</div>`,
+                methods: {
+                    handleChild() {
+                        console.log("Child")
+                    }
+                },
+            }
+        }
+    })
 
     new Vue({
         el: "#box",
