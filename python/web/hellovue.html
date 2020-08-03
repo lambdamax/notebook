@@ -36,7 +36,12 @@
         </li>
     </ul>
     <hr>
-    <navbar></navbar>
+    <!--    布尔值需动态绑定，不然看做字符串。v-show=字符串 判定为真-->
+    <!--    父节点定义事件myevent=handleEvent/handleEvent($event)-->
+    <navbar myname="nav1" :myshow="false" @myevent="handleEvent"></navbar>
+    <navbar myname="nav2" :myshow="true" @myevent="handleEvent"></navbar>
+    <navbar :myname="parentName" :myshow="false" @myevent="handleEvent"></navbar>
+
 </div>
 <script type="application/javascript">
     // 全局定义组件
@@ -44,15 +49,29 @@
         template: `
         <div>
             <button @click="handleBack">返回</button>
-                Navbar
-            <button>主页</button>
-            <navbarchild></navbarchild>
+            <button @click="payMoney">第二个按钮</button>
+                Navbar -- {{myname}}
+            <button v-show="myshow">主页</button>
+            <navbarchild ></navbarchild>
         </div>`,
+        // data: {
+        //     childName: "子组件状态"
+        // },
+        data() {
+            return {
+                childName: "子组件状态"
+            }
+        },
         methods: {
             handleBack() {
                 console.log("back")
+            },
+            payMoney() {
+                this.$emit("myevent", this.childName) //分发事件，子传父，触发父节点事件
             }
         },
+        // props: ["myname", "myshow"], //接受父传子属性
+        props: {myname: String, myshow: Boolean}, //属性验证
         // 局部定义组件
         components: {
             navbarchild: {
@@ -73,7 +92,8 @@
             mytext: "",
             username: "max",
             password: "",
-            datalist: ["aaa", "bbb", "cccc", "aab", "bbc"]
+            datalist: ["aaa", "bbb", "cccc", "aab", "bbc"],
+            parentName: "父属性"
         },
         computed: {
             // 计算属性只调用一次，缓存
@@ -98,6 +118,10 @@
             // 方法每次都会调用
             func1() {
                 return this.username.substring(0, 1).toUpperCase() + this.username.substring(1)
+            },
+            // 父节点事件
+            handleEvent(ev) {
+                console.log("收到钱了", ev)
             }
         }
     })
