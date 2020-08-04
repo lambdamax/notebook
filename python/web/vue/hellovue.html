@@ -41,6 +41,13 @@
     <navbar myname="nav1" :myshow="false" @myevent="handleEvent"></navbar>
     <navbar myname="nav2" :myshow="true" @myevent="handleEvent"></navbar>
     <navbar :myname="parentName" :myshow="false" @myevent="handleEvent"></navbar>
+    <!--    组件ref-->
+    <navbar ref="navbarref1"></navbar>
+    <button @click="handleNavbarRef1">组件ref按钮</button>
+    <hr>
+    <!--    标签ref-->
+    <input type="text" ref="myinput1">
+    <button @click="handleMyInput1">标签ref按钮</button>
 
 </div>
 <script type="application/javascript">
@@ -54,9 +61,6 @@
             <button v-show="myshow">主页</button>
             <navbarchild ></navbarchild>
         </div>`,
-        // data: {
-        //     childName: "子组件状态"
-        // },
         data() {
             return {
                 childName: "子组件状态"
@@ -93,7 +97,7 @@
             username: "max",
             password: "",
             datalist: ["aaa", "bbb", "cccc", "aab", "bbc"],
-            parentName: "父属性"
+            parentName: "父属性",
         },
         computed: {
             // 计算属性只调用一次，缓存
@@ -122,6 +126,17 @@
             // 父节点事件
             handleEvent(ev) {
                 console.log("收到钱了", ev)
+            },
+            // ref放在标签上，子传父
+            handleMyInput1() {
+                console.log(this.$refs.myinput1.value)
+            },
+            // ref放在组件上，子传父
+            handleNavbarRef1() {
+                // 查看子属性
+                console.log(this.$refs.navbarref1.childName)
+                // 调用子方法
+                this.$refs.navbarref1.handleBack()
             }
         }
     })

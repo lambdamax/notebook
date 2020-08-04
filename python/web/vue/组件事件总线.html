@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+</head>
+<body>
+<div id="box">
+    <weixinauthor></weixinauthor>
+    <weixinuser></weixinuser>
+</div>
+<script type="application/javascript">
+    // 事件总线
+    var bus = new Vue();
+
+    Vue.component("weixinauthor", {
+        // <input type="text" ref="publisher">
+        template: `
+        <div>
+        发布人
+            <input type="text" v-model="publisher">
+            <button @click="handlePublish">发布</button>
+        </div>`,
+        data() {
+            return {
+                publisher: "22"
+            }
+        },
+        methods: {
+            handlePublish() {
+                // 发布订阅weixinmessage
+                bus.$emit("weixinmessage", this.publisher)
+                // 使用ref取值
+                // bus.$emit("weixinmessage", this.$refs.publisher.value)
+            }
+        },
+    })
+
+    Vue.component("weixinuser", {
+        // <input type="text" ref="reciever">
+        template: `
+        <div>
+        接收人
+            <input type="text" v-model="reciever">
+        </div>`,
+        data() {
+            return {
+                reciever: ""
+            }
+        },
+        methods: {},
+        mounted() {
+            console.log("生命周期函数-当前组件DOM创建完成之后自调用")
+            // 监听订阅weixinmessage
+            bus.$on("weixinmessage", (data) => {
+                console.log("接受内容：", data)
+                this.reciever = data
+            })
+        }
+    })
+
+    new Vue({
+        el: "#box",
+    })
+</script>
+</body>
+</html>
