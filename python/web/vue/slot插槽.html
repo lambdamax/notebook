@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+</head>
+<body>
+<div id="box">
+    <child>
+        <!--        混合父组件的内容与子组件自己的模板————内容分发-->
+        <!--        插槽内容位于父组件作用域内，可访问父组件内容-->
+        <div slot="a">slot插入内容1</div>
+        <div slot="b">slot插入内容2</div>
+    </child>
+
+    <swapper>
+        <ul>
+            <li v-for="data in datalist">{{data}}</li>
+        </ul>
+    </swapper>
+
+</div>
+<script type="application/javascript">
+    Vue.component("child", {
+        // 具名插槽
+        template: `
+        <div>
+            <slot name="a"></slot>
+             child
+             <slot name="b"></slot>
+        </div>
+        `
+    })
+
+    Vue.component("swapper", {
+        template: `
+        <div>
+            <slot></slot>
+        </div>
+        `
+    })
+
+    new Vue({
+        el: "#box",
+        data: {
+            datalist: ['1111', '2222', '3333'],
+        },
+    })
+</script>
+</body>
+</html>

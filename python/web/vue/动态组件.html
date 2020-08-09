@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+</head>
+<body>
+<div id="box">
+    <div>动态组件</div>
+    <button @click="who1=='home'?who1='list':who1='home'">动态组件改变</button>
+    <component :is="who1"></component>
+
+    <!--    动态组件切换时会被重新渲染，keep-alive可以避免组件被重新渲染-->
+    <keep-alive>
+        <component :is="who2"></component>
+    </keep-alive>
+
+    <footer>
+        <ul style="background-color: green">
+            <li><a @click="who2='home'">首页</a></li>
+            <li><a @click="who2='list'">第二页</a></li>
+            <li><a @click="who2='sidebar'">第三页</a></li>
+        </ul>
+    </footer>
+</div>
+<script type="application/javascript">
+    new Vue({
+        el: "#box",
+        data: {
+            who1: "home",
+            who2: "home",
+        },
+        // 动态组件
+        components: {
+            "home": {
+                template: `<div>home <input type="text"></div>`
+            },
+            "list": {
+                template: `<div>list</div>`
+            },
+            "sidebar": {
+                template: `<div>sidebar</div>`
+            },
+        }
+    })
+</script>
+</body>
+</html>
