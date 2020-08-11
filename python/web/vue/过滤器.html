@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+    <style>
+        .kerwinfade-enter-active, .kerwinfade-leave-active {
+            transition: all 1s;
+        }
+
+        .kerwinfade-enter, .kerwinfade-leave-to {
+            apacity: 0;
+            transform: translateX(100px);
+        }
+
+        .kerwinbounce-enter-active {
+            animation: bounce-in .5s;
+        }
+
+        .kerwinbounce-leave-active {
+            animation: bounce-in .5s reverse;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                apacity: 0;
+                transform: translateX(100px);
+            }
+            100% {
+                apacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li v-for="data in datalist">
+            {{data}}
+        </li>
+    </ul>
+</div>
+<script type="application/javascript">
+    Vue.component("child", {
+        // <input type="text" ref="publisher">
+        template: `
+        <div>
+        我是组件
+            <input type="text">
+        </div>`,
+    })
+
+    new Vue({
+        el: "#box",
+        data: {
+            datalist: []
+        },
+        mounted() {
+            axios.get("movies.json").then(res => {
+                console.log(res)
+                this.datalist = res
+            })
+        },
+    })
+</script>
+</body>
+</html>

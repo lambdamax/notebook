@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+    <style>
+        .kerwinfade-enter-active, .kerwinfade-leave-active {
+            transition: all 1s;
+        }
+
+        .kerwinfade-enter, .kerwinfade-leave-to {
+            apacity: 0;
+            transform: translateX(100px);
+        }
+
+        .kerwinbounce-enter-active {
+            animation: bounce-in .5s;
+        }
+
+        .kerwinbounce-leave-active {
+            animation: bounce-in .5s reverse;
+        }
+
+        @keyframes bounce-in {
+            0% {
+                apacity: 0;
+                transform: translateX(100px);
+            }
+            100% {
+                apacity: 1;
+                transform: translateX(0px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <button @click="isShow1=!isShow1">click单元素过渡</button>
+    <transition name="kerwinfade">
+        <div v-show="isShow1">测试显示行1</div>
+    </transition>
+
+    <transition name="kerwinbounce">
+        <div v-show="isShow1">测试显示行2</div>
+    </transition>
+    <br>
+    <!--    相同标签名切换时，需设置唯一key值来让vue进行区分，否则vue不会重新渲染标签而只替换标签内内容-->
+    <!--    mode in-out、out-in-->
+    <button @click="isShow2=!isShow2">click多元素过渡</button>
+    <transition name="kerwinfade" mode="in-out">
+        <div v-if="isShow2" key="1">测试显示行1</div>
+        <div v-else="" key="2">测试显示行2</div>
+    </transition>
+    <br>
+    <button @click="who=='child'?who=false:who='child'">click组件过渡</button>
+    <transition name="kerwinfade" mode="in-out">
+        <keep-alive>
+            <component :is="who"></component>
+        </keep-alive>
+    </transition>
+    <br>
+    <!--    多列表过渡-->
+    <input type="text" v-model="mytest" @keyup.enter="addText">
+    <button @click="addText">添加</button>
+    <transition-group tag="ul" name="kerwinfade">
+        <li v-for="(data,index) in datalist" :key="data">
+            {{data}}---{{index}}
+            <button @click="delText(index)">删除</button>
+        </li>
+    </transition-group>
+
+</div>
+<script type="application/javascript">
+    Vue.component("child", {
+        // <input type="text" ref="publisher">
+        template: `
+        <div>
+        我是组件
+            <input type="text">
+        </div>`,
+    })
+
+    new Vue({
+        el: "#box",
+        data: {
+            isShow1: false,
+            isShow2: false,
+            who: false,
+            mytest: "",
+            datalist: []
+        },
+        methods: {
+            addText() {
+                if (this.mytest in this.datalist) {
+                    return alert("已存在")
+                }
+                this.datalist.push(this.mytest);
+                this.mytest = "";
+            },
+            delText(index) {
+                this.datalist.splice(index, 1)
+            }
+        }
+    })
+</script>
+</body>
+</html>
