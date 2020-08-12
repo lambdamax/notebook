@@ -4,55 +4,20 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
-    <style>
-        .kerwinfade-enter-active, .kerwinfade-leave-active {
-            transition: all 1s;
-        }
-
-        .kerwinfade-enter, .kerwinfade-leave-to {
-            apacity: 0;
-            transform: translateX(100px);
-        }
-
-        .kerwinbounce-enter-active {
-            animation: bounce-in .5s;
-        }
-
-        .kerwinbounce-leave-active {
-            animation: bounce-in .5s reverse;
-        }
-
-        @keyframes bounce-in {
-            0% {
-                apacity: 0;
-                transform: translateX(100px);
-            }
-            100% {
-                apacity: 1;
-                transform: translateX(0px);
-            }
-        }
-    </style>
 </head>
 <body>
 <div id="box">
     <ul>
-        <li v-for="data in datalist">
-            {{data}}
+        <li v-for="data in datalist" :key="data.id">
+            <h3>{{data.nm}}</h3>
+            <h4>{{data.star}}</h4>
+            <img :src="data.img.replace('w.h','280.180')" alt="data.nm">
         </li>
     </ul>
 </div>
 <script type="application/javascript">
-    Vue.component("child", {
-        // <input type="text" ref="publisher">
-        template: `
-        <div>
-        我是组件
-            <input type="text">
-        </div>`,
-    })
-
     new Vue({
         el: "#box",
         data: {
@@ -60,8 +25,8 @@
         },
         mounted() {
             axios.get("movies.json").then(res => {
-                console.log(res)
-                this.datalist = res
+                console.log(res.data)
+                this.datalist = res.data.coming
             })
         },
     })
