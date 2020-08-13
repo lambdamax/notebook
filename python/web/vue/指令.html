@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>-->
+</head>
+<body>
+<div id="box">
+    <div v-hello="'blue'">11111</div>
+    <div v-hello="color">22222</div>
+</div>
+<script type="application/javascript">
+    // 指令生命周期
+    Vue.directive("hello", {
+        // 创建
+        inserted(el, bind) {
+            console.log(el);
+            el.style.background = bind.value
+        },
+        // 更新
+        update(el, bind) {
+            // console里vm.color='red'生效
+            console.log(el);
+            el.style.background = bind.value
+        }
+    })
+    var vm = new Vue({
+        el: "#box",
+        data: {
+            color: 'blue'
+        },
+        methods: {},
+        mounted() {
+        },
+    })
+</script>
+</body>
+</html>

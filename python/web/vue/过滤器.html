@@ -13,11 +13,18 @@
         <li v-for="data in datalist" :key="data.id">
             <h3>{{data.nm}}</h3>
             <h4>{{data.star}}</h4>
-            <img :src="data.img.replace('w.h','280.180')" alt="data.nm">
+            <img :src="data.img | changepath" alt="data.nm">
         </li>
     </ul>
 </div>
 <script type="application/javascript">
+    Vue.filter("changepath", data => {
+        return data.replace('w.h', '128.180')
+    })
+    // Vue.filter("changepath", function (data) {
+    //     return data.replace('w.h', '128.180')
+    // })
+
     new Vue({
         el: "#box",
         data: {
