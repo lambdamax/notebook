@@ -9,20 +9,37 @@
         {{ data }}
       </li>
     </ul>
+
+    <navbar>
+      <button @click="isShow=!isShow">click</button>
+    </navbar>
+    <sidebar v-show="isShow"></sidebar>
   </div>
 </template>
 
 <script>
+import navbar from '@/components/navbar'
+import sidebar from '@/components/sidebar'
+// 全局组件
+// import Vue from 'vue'
+// Vue.component('navbar', navbar)
+// Vue.component('sidebar', sidebar)
+
 export default {
-  data() {
+  data () {
     return {
-      datalist: []
+      datalist: [],
+      isShow: true
     }
   },
   methods: {
-    handleAdd() {
+    handleAdd () {
       this.datalist.push(this.$refs.mytext.value)
     }
+  },
+  components: {
+    navbar: navbar,
+    sidebar: sidebar
   }
 }
 </script>
