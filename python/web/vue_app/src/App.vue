@@ -5,7 +5,7 @@
     <button @click="handleAdd">add</button>
 
     <ul>
-      <li v-for="data in datalist" :key="data">
+      <li v-for="(data,index) in datalist" :key="index">
         {{ data }}
       </li>
     </ul>
@@ -14,12 +14,18 @@
       <button @click="isShow=!isShow">click</button>
     </navbar>
     <sidebar v-show="isShow"></sidebar>
+    <!--    路由容器-->
+    <router-view></router-view>
+
+    <tabbar></tabbar>
   </div>
 </template>
 
 <script>
 import navbar from '@/components/navbar'
 import sidebar from '@/components/sidebar'
+import tabbar from '@/components/tabbar'
+import axios from 'axios'
 // 全局组件
 // import Vue from 'vue'
 // Vue.component('navbar', navbar)
@@ -37,14 +43,20 @@ export default {
       this.datalist.push(this.$refs.mytext.value)
     }
   },
+  mounted () {
+    axios.get('/ajax/movieOnInfoList?token=').then(res => {
+      console.log(res.data)
+    })
+  },
   components: {
     navbar: navbar,
-    sidebar: sidebar
+    sidebar: sidebar,
+    tabbar: tabbar
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 ul {
   li {
     background: yellow
