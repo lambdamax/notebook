@@ -7,6 +7,7 @@
 <script>
 export default {
   name: 'Center'
+  // 局部路由守卫
 }
 </script>
 

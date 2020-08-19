@@ -3,7 +3,9 @@
     声明式导航
     <ul>
       <router-link :to="'/'+data" tag="li" active-class="myactive"
-                   v-for="(data,index) in datalist" :key="index">{{ data }}
+                   v-for="(data,index) in datalist" :key="index">
+        <i class="mui-icon mui-icon-plus"></i>
+        {{ data }}
       </router-link>
     </ul>
   </nav>
