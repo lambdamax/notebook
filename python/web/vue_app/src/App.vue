@@ -17,7 +17,7 @@
     <!--    路由容器-->
     <router-view></router-view>
 
-    <tabbar></tabbar>
+    <tabbar v-show="$store.state.isTabbarShow"></tabbar>
   </div>
 </template>
 

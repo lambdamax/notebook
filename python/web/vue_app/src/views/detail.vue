@@ -16,6 +16,10 @@ export default {
   mounted () {
     console.log(this.$route)
     this.val = this.$route.params.id
+    this.$store.commit('HideTabbar', false)
+  },
+  beforeDestroy () {
+    this.$store.commit('ShowTabbar', true)
   }
 }
 </script>
