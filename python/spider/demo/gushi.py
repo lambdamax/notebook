@@ -54,8 +54,8 @@ def main():
     s = requests.Session()
     # 验证码
     view, viewg = download_code(s)
-    login(view, viewg, s)
-    fetch_collection(s)
+    lg = login(view, viewg, s)
+    fetch_collection(lg)
 
 
 if __name__ == '__main__':
