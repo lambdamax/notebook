@@ -13,9 +13,9 @@ def download_code(s):
     r = s.get(url=url, headers=headers)
     html = pq(r.text)
     image_src = 'https://so.gushiwen.org/' + html.find('img#imgCode').attr('src')
-    r_image = s.get(image_src, headers=headers)
+    image = s.get(image_src, headers=headers)
     with open('code.png', 'wb') as fp:
-        fp.write(r_image.content)
+        fp.write(image.content)
     img = Image.open('code.png')
     plt.figure("code")
     plt.imshow(img)
