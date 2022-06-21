@@ -53,7 +53,7 @@ nbconvert==5.6.0
 nbformat==4.4.0
 notebook==6.0.1
 notedown==1.5.1
-numpy==1.17.0
+numpy==1.22.0
 opt-einsum==3.1.0
 pandas==0.25.1
 pandoc-attributes==0.1.7
